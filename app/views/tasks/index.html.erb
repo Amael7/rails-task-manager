@@ -1,0 +1,26 @@
+<h1>My Tasks</h1>
+
+<ul>
+  <% @tasks.each { |task| %>
+  <li>
+    <% if task.completed %>
+        <%= link_to task_path(task.id, :params => {:task => {completed: false}}), method: 'patch' do %>
+          <i class="far fa-check-square"></i>
+        <% end %>
+     <% else %>
+        <%= link_to task_path(task.id, :params => {:task => {completed: true}}), method: 'patch' do %>
+          <i class="far fa-square"></i>
+        <% end %>
+     <% end %>
+
+    <%= link_to task.title, show_path(task) %>
+        <%= link_to delete_path(task), method: 'delete', data: { confirm: "Are you sure?" } do %>
+          <i class="far fa-trash-alt"></i>
+        <% end %>
+
+  </li>
+  <% } %>
+</ul>
+<p>
+    <i class="fas fa-plus"></i><%= link_to "Add a new Task", new_path %>
+</p>
